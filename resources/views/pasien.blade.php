@@ -16,6 +16,7 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Alamat</th>
                         <th scope="col">Telepon</th>
+                        <th scope="col">Rumah Sakit</th>
                         <th scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -29,6 +30,7 @@
                                 <td>{{ $item->ps_name }}</td>
                                 <td>{{ $item->ps_address }}</td>
                                 <td>{{ $item->ps_phone }}</td>
+                                <td>{{ $item->rumahSakit->rs_name }}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#editModal{{ $item->ps_id }}">Edit</button>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->ps_id }}">Hapus</button>
@@ -61,9 +63,13 @@
                                                 <div class="mb-3">
                                                     <label for="rs" class="form-label">Rumah Sakit</label>
                                                     <select class="form-control" id="rs" name="rs" required>
-                                                        <option disabled selected>--- Pilih Rumah Sakit ---</option>
+                                                        <option disabled>--- Pilih Rumah Sakit ---</option>
                                                         @foreach ($dataRs as $itemRs)
-                                                            <option value="{{ $itemRs->rs_id }}" {{ $itemRs->rs_id = $item->rs_id ? 'Selected' : '' }}>{{ $itemRs->rs_name }}</option>
+                                                            @if ($itemRs->rs_id == $item->rs_id)
+                                                                <option value="{{ $itemRs->rs_id }}" selected>{{ $itemRs->rs_name }}</option>
+                                                            @else
+                                                                <option value="{{ $itemRs->rs_id }}">{{ $itemRs->rs_name }}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -136,9 +142,9 @@
                         <div class="mb-3">
                             <label for="rs" class="form-label">Rumah Sakit</label>
                             <select class="form-control" id="rs" name="rs" required>
-                                <option disabled selected>--- Pilih Rumah Sakit ---</option>
-                                @foreach ($dataRs as $item)
-                                    <option value="{{ $item->rs_id }}">{{ $item->rs_name }}</option>
+                                <option disabled>--- Pilih Rumah Sakit ---</option>
+                                @foreach ($dataRs as $itemRs)
+                                    <option value="{{ $itemRs->rs_id }}">{{ $itemRs->rs_name }}</option>
                                 @endforeach
                             </select>
                         </div>
