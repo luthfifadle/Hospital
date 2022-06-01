@@ -17,7 +17,7 @@
             </div>
         @endif
         <div class="card-header">
-            <img src="{{ asset('img/logo.png') }}" height="100"><br>
+            <img src="{{ asset('img/logo.png') }}" height="100">
         </div>
         <div class="card-body">
             <h3>Login</h3>

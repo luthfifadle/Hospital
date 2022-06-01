@@ -15,7 +15,7 @@ class mainController extends Controller
         $auth = Users::where('name', $username)->first();
 
         if ($auth && Hash::check($password, $auth->password)) {
-            return view('rumahsakit');
+            return redirect('rumah-sakit');
         } else {
             return redirect('/')->with('status', 'Login Gagal, Username dan Password salah!');
         }

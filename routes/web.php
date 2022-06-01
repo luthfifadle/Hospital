@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mainController;
+use App\Http\Controllers\rumahsakitController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::post('/login-auth', [mainController::class, 'loginAuth']);
+Route::post('/rumah-sakit/delete', [rumahsakitController::class, 'delete']);
+Route::resource('rumah-sakit', rumahsakitController::class);
