@@ -24,5 +24,6 @@ Route::post('/login-auth', [mainController::class, 'loginAuth']);
 Route::post('/rumah-sakit/delete', [rumahsakitController::class, 'delete']);
 Route::resource('rumah-sakit', rumahsakitController::class);
 
+Route::post('/pasien/filterRs', [pasienController::class, 'filterRs']);
 Route::post('/pasien/delete', [pasienController::class, 'delete']);
 Route::resource('pasien', pasienController::class);

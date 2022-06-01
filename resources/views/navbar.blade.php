@@ -14,7 +14,7 @@
           </li>
         </ul>
         <span class="navbar-text">
-            Logout
+            <a href="{{ url('/') }}">Logout</a>
         </span>
       </div>
     </div>

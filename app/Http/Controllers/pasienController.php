@@ -13,10 +13,25 @@ class pasienController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dataPasien = Pasien::get();
+        $rs_id = isset($request->id) ? $request->id : null;
+
+        if ($rs_id) {
+            $dataPasien = Pasien::whereHas('rumahSakit', function($q) use ($rs_id) {
+                $q->where('rs_id', $rs_id);
+            })->get();
+        } else {
+            $dataPasien = Pasien::get();
+        }
         $dataRs = RumahSakit::get();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $dataPasien
+            ]);
+        }
         return view('pasien', ['dataPasien' => $dataPasien, 'dataRs' => $dataRs]);
     }
 
@@ -111,5 +126,9 @@ class pasienController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
+    }
+
+    public function filterRs(Request $request) {
+        $this->index($request->id);
     }
 }
