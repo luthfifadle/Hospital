@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pasien;
 use App\Models\RumahSakit;
 
-class rumahsakitController extends Controller
+class pasienController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,9 @@ class rumahsakitController extends Controller
      */
     public function index()
     {
+        $dataPasien = Pasien::get();
         $dataRs = RumahSakit::get();
-        return view('rumahsakit', ['dataRs' => $dataRs]);
+        return view('pasien', ['dataPasien' => $dataPasien, 'dataRs' => $dataRs]);
     }
 
     /**
@@ -36,16 +38,16 @@ class rumahsakitController extends Controller
      */
     public function store(Request $request)
     {
-        $insertRs = new RumahSakit();
-        $insertRs->rs_name = $request->nama;
-        $insertRs->rs_address = $request->alamat;
-        $insertRs->rs_mail = $request->email;
-        $insertRs->rs_phone = $request->telepon;
-        $insertRs->created_at = date('Y-m-d H:i:s');
-        $insertRs->updated_at = date('Y-m-d H:i:s');
-        $insertRs->save();
+        $insertPs = new Pasien();
+        $insertPs->ps_name = $request->nama;
+        $insertPs->ps_address = $request->alamat;
+        $insertPs->ps_phone = $request->telepon;
+        $insertPs->rs_id = $request->rs;
+        $insertPs->created_at = date('Y-m-d H:i:s');
+        $insertPs->updated_at = date('Y-m-d H:i:s');
+        $insertPs->save();
 
-        return redirect('rumah-sakit');
+        return redirect('pasien');
     }
 
     /**
@@ -79,15 +81,15 @@ class rumahsakitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateRs = RumahSakit::where('rs_id', $id)->first();
-        $updateRs->rs_name = $request->nama;
-        $updateRs->rs_address = $request->alamat;
-        $updateRs->rs_mail = $request->email;
-        $updateRs->rs_phone = $request->telepon;
-        $updateRs->updated_at = date('Y-m-d H:i:s');
-        $updateRs->save();
+        $updatePs = Pasien::where('ps_id', $id)->first();
+        $updatePs->ps_name = $request->nama;
+        $updatePs->ps_address = $request->alamat;
+        $updatePs->ps_phone = $request->telepon;
+        $updatePs->rs_id = $request->rs;
+        $updatePs->updated_at = date('Y-m-d H:i:s');
+        $updatePs->save();
 
-        return redirect('rumah-sakit');
+        return redirect('pasien');
     }
 
     /**
@@ -98,13 +100,13 @@ class rumahsakitController extends Controller
      */
     public function destroy($id)
     {
-
+        //
     }
 
     public function delete(Request $request)
     {
         $id = $request->id;
-        $deleteRs = RumahSakit::where('rs_id', $id)->delete();
+        $deletePs = Pasien::where('rs_id', $id)->delete();
 
         return response()->json([
             'status' => 'success'

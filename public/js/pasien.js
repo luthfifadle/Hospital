@@ -1,13 +1,13 @@
 function deleteRs (val) {
-    rs_id = val;
+    ps_id = val;
 
     $.ajax({
-        url: "rumah-sakit/delete",
+        url: "pasien/delete",
         dataType: 'JSON',
         type: 'POST',
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
-            id: rs_id,
+            id: ps_id,
         },
         success: function (data) {
             if (data.status == 'success') {
